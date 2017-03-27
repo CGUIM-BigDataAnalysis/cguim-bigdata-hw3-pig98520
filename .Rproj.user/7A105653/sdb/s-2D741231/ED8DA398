@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "---\ntitle: \"長庚大學 大數據分析方法 作業三\"\noutput: github_document\n---\n\n## 網站資料爬取\n```{r}\nPTT_list<-list(URL=c(\"https://www.ptt.cc/bbs/Tech_Job/index.html\",\n                    \"https://www.ptt.cc/bbs/Tech_Job/index2575.html\",\n                    \"https://www.ptt.cc/bbs/Tech_Job/index2574.html\",\n                    \"https://www.ptt.cc/bbs/Tech_Job/index2573.html\",\n                    \"https://www.ptt.cc/bbs/Tech_Job/index2572.html\",\n                    \"https://www.ptt.cc/bbs/Tech_Job/index2571.html\"))\n\n\nlibrary(rvest) \nlibrary(xml2)\nPTT_Posts<- data.frame()\n\nfor(n in 1:6){\n    content <-read_html(PTT_list$URL[n])\n    title <- content %>% html_nodes(\"div.title\") %>%html_text()\n    pushnum <- content %>% html_nodes(\"div.nrec\") %>% html_text()\n    author <- content %>% html_nodes(\"div.author\") %>% html_text()\n    PTT_Posts1<- data.frame(Title=title ,PushNum=pushnum ,Author=author)\n    PTT_Posts<- rbind(PTT_Posts,PTT_Posts1) \n}\n```\n\n## 爬蟲結果呈現\n```{r}\nknitr::kable(PTT_Posts)\n```\n\n## 解釋爬蟲結果 \n```{r}\nstr(PTT_Posts[1])\ndim(PTT_Posts)\nnrow(PTT_Posts)\n```\n用PTT_posts[1]，取出PTT_posts的第[1]個欄位也就是『標題』，得到結果為'data.frame':\t109 obs. of  1 variable，可知有109個觀察值(標題數)。\n(以上數值可能隨著時間網頁重整所變動)\n```{r}\nMaxPost<-max(table(PTT_Posts$Author,exclude= \"-\"))\n\nfor(m in 1:(length(table(PTT_Posts$Author)))){\n    if(((table(PTT_Posts$Author))[[m]])==MaxPost)\n    {\n     print((table(PTT_Posts$Author))[m])\n    }\n}\n```\nMaxPost是先用Table找出同一個作者貼文數的次數統計，並用Max取出最大值。並把\"-\"作者排除在外(因為\"-\"代表已刪除文章，不列入計算)。\n接著再用迴圈去找哪一個作者的貼文數剛好等於MaxPost，把他的名字跟貼文數Print出來。得到的結果為magic704226作者，貼文數為3則。\n(以上數值可能隨著時間網頁重整所變動)\n\n\n##人工結論與解釋\n\n1.在不同的時間debug，使用str()取出來的值都會不同，由此可知，我們要爬的資料是隨著時間而改變的。\n\n2.在第一題，原本是想要做字串連接的方法，將六個網頁分別放入 PTT_Posts1(2,3,4,5,6)，但是使用paste0()的函數卻沒辦法搭配rbind()或<-data.frame使用，我們必須搭配一個空的資料框，將爬到的資料依序串連起來。\n\n3.在第三題的第一小題，試著將老師所說的三種方法都Run一次，若要符合題意，只需要知道總共有幾個\"觀察值\"使用nrow()會比較適合，若是需要知道詳細一點的資料，使用str()取得資訊會比較適合，可得到呈現資料的詳細程度str()>dim()>=nrow (因為兩者只差在variable的值)。\n\n4.在第三題的第二小題，若我們只用max(table(PTT_Posts$Author,exclude= \"-\"))，只能夠取出貼文數，並沒辦法取出作者，而若我們只用table不使用max函數，我們必須考慮到資料量可能會便龐大，假設今天觀察值有上千個，我們不可能一個一個去比對，因此我加上了迴圈的方式，讓電腦去\"搜尋貼文數==最大貼文數\"的作者。",
+    "created" : 1490591394645.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "81851881",
+    "id" : "ED8DA398",
+    "lastKnownWriteTime" : 1490592173,
+    "last_content_update" : 1490592173391,
+    "path" : "C:/Users/pig98/Desktop/cguim-bigdata-hw3-pig98520-master/cguim-bigdata-hw3-pig98520/README.Rmd",
+    "project_path" : "README.Rmd",
+    "properties" : {
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}
