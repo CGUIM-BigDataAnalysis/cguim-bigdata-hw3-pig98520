@@ -15,7 +15,7 @@ PTT_list<-list(URL=c("https://www.ptt.cc/bbs/Tech_Job/index.html",
 
 library(rvest) 
 library(xml2)
-PTT_Posts<- data.frame()
+PTT_Posts<- NULL
 
 for(n in 1:6){
     content <-read_html(PTT_list$URL[n])

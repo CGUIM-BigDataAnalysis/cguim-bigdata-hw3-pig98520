@@ -5,8 +5,12 @@
 "0","                    ""https://www.ptt.cc/bbs/Tech_Job/index2572.html"","
 "0","                    ""https://www.ptt.cc/bbs/Tech_Job/index2571.html""))"
 "0","library(rvest) "
+"2","package ．rvest・ was built under R version 3.3.3"
+"2","Loading required package: xml2
+"
+"2","package ．xml2・ was built under R version 3.3.3"
 "0","library(xml2)"
-"0","PTT_Posts<- data.frame()"
+"0","PTT_Posts<- NULL"
 "0","for(n in 1:6){"
 "0","    content <-read_html(PTT_list$URL[n])"
 "0","    title <- content %>% html_nodes(""div.title"") %>%html_text()"

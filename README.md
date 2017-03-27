@@ -24,7 +24,7 @@ library(rvest)
 
 ``` r
 library(xml2)
-PTT_Posts<- data.frame()
+PTT_Posts<- NULL
 
 for(n in 1:6){
     content <-read_html(PTT_list$URL[n])
@@ -46,7 +46,14 @@ knitr::kable(PTT_Posts)
 | Title                                                            | PushNum | Author       |
 |:-----------------------------------------------------------------|:--------|:-------------|
 | 捷普 綠點刀具                                                    | 1       | tn372845     |
-| \[請益\] 日商安立知                                              |         | pjc202       |
+| \[請益\] 日商安立知                                              | 2       | pjc202       |
+| \[情報\] 蘋果申請具備iPhone核心之Macbook產品                     | 5       | zxcvxx       |
+| \[請益\]有人收到德州儀器技術行銷工程師面試邀請?                  |         | wer11        |
+| \[請益\] 請問陸資的IC設計公司                                    | 5       | DigiTalent   |
+| \[請益\] 德州儀器設備工程師實習                                  | 1       | oeys         |
+| \[討論\] 國家光電好嗎                                            |         | chag06       |
+| Re: \[請益\] 請問陸資的IC設計公司                                | 8       | DigiTalent   |
+| \[請益\] 是否該調往偏鄉工作？                                    | 4       | NakiXIII     |
 | 律師為您解惑－線上勞動法免費諮詢即日為勞工 …                     | 爆      | pzs          |
 | \[公告\] Tech\_Job板板規 2014.03.01                              | 7       | mmkntust     |
 | \[公告\] 置底 檢舉/推薦 文章                                     | 爆      | mmkntust     |
@@ -159,20 +166,20 @@ knitr::kable(PTT_Posts)
 str(PTT_Posts[1])
 ```
 
-    ## 'data.frame':    106 obs. of  1 variable:
-    ##  $ Title: Factor w/ 94 levels "\n\t\t\t\n\t\t\t\t[公告] Tech_Job板板規 2014.03.01\n\t\t\t\n\t\t\t",..: 6 4 5 1 2 3 26 25 15 11 ...
+    ## 'data.frame':    113 obs. of  1 variable:
+    ##  $ Title: Factor w/ 101 levels "\n\t\t\t\n\t\t\t\t[公告] Tech_Job板板規 2014.03.01\n\t\t\t\n\t\t\t",..: 13 6 5 10 9 8 4 11 7 12 ...
 
 ``` r
 dim(PTT_Posts)
 ```
 
-    ## [1] 106   3
+    ## [1] 113   3
 
 ``` r
 nrow(PTT_Posts)
 ```
 
-    ## [1] 106
+    ## [1] 113
 
 用PTT\_posts\[1\]，取出PTT\_posts的第\[1\]個欄位也就是『標題』，得到結果為'data.frame': 109 obs. of 1 variable，可知有109個觀察值(標題數)。 (以上數值可能隨著時間網頁重整所變動)
 
